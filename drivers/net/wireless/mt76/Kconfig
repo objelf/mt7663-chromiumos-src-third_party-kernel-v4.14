@@ -8,7 +8,8 @@ config MT76_LEDS
 	depends on LEDS_CLASS=y || MT76_CORE=LEDS_CLASS
 	default y
 
-config MT7615E
-	tristate "MT7615 driver backport"
-	select MT76_CORE
-	depends on m
+config MT76_USB
+        tristate
+        depends on MT76_CORE
+
+source "drivers/net/wireless/mt76/mt7615/Kconfig"
