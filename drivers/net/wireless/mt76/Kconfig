@@ -1,0 +1,14 @@
+# SPDX-License-Identifier: GPL-2.0-only
+config MT76_CORE
+	tristate
+
+config MT76_LEDS
+	bool
+	depends on MT76_CORE
+	depends on LEDS_CLASS=y || MT76_CORE=LEDS_CLASS
+	default y
+
+config MT7615E
+	tristate "MT7615 driver backport"
+	select MT76_CORE
+	depends on m
