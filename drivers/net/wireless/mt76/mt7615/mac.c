@@ -537,6 +537,12 @@ int mt7615_mac_write_txwi(struct mt7615_dev *dev, __le32 *txwi,
 			q_idx = MT_LMAC_BCN0;
 		p_fmt = MT_TX_TYPE_FW;
 	} else {
+		if (ieee80211_is_auth(fc))
+			pr_err("%s %d auth\n", __func__, __LINE__);
+
+		if (ieee80211_is_assoc_req(fc))
+			pr_err("%s %d assoc req\n", __func__, __LINE__);
+
 		if (ext_phy)
 			q_idx = MT_LMAC_ALTX1;
 		else
