@@ -13,10 +13,11 @@
 #include "mcu.h"
 #include "regs.h"
 
-static int mt7615_mcu_msg_send_usb(struct mt7615_dev *dev, struct sk_buff *skb,
+static int mt7615_mcu_msg_send_usb(struct mt76_dev *mdev, struct sk_buff *skb,
 				   int cmd, int *wait_seq)
 {
 	int ret, ep;
+	struct mt7615_dev *dev = container_of(mdev, struct mt7615_dev, mt76);
 
 	mt7615_mcu_fill_msg(dev, skb, cmd, wait_seq);
 	if (cmd != MCU_CMD_FW_SCATTER)
