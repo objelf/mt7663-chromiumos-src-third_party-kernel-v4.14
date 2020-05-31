@@ -3146,6 +3146,26 @@ int mt7615_mcu_get_mib_info(struct mt7615_phy *phy, struct sk_buff **skb)
 	return ret;
 }
 
+int mt7615_mcu_get_wtbl_info(struct mt7615_dev *dev, int index,
+			     struct sk_buff **skb)
+{
+	struct {
+		u8 index;
+		u8 rsv[3];
+	} __packed req = {
+		.index = index,
+	};
+	int ret;
+
+	if (!mt7615_firmware_offload(dev))
+		return -ENOTSUPP;
+
+	ret = __mt76_mcu_send_msg_rsp(&dev->mt76, MCU_CMD_GET_WTBL_INFO,
+				      &req, sizeof(req), skb);
+
+	return ret;
+}
+
 static int mt7615_find_freq_idx(const u16 *freqs, int n_freqs, u16 cur)
 {
 	int i;

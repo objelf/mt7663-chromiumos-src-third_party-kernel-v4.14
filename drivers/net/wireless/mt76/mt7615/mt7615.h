@@ -477,6 +477,8 @@ void mt7615_scan_work(struct work_struct *work);
 void mt7615_roc_work(struct work_struct *work);
 void mt7615_roc_timer(struct timer_list *timer);
 int mt7615_mcu_get_mib_info(struct mt7615_phy *phy, struct sk_buff **skb);
+int mt7615_mcu_get_wtbl_info(struct mt7615_dev *dev, int index,
+			     struct sk_buff **skb);
 void mt7615_init_txpower(struct mt7615_dev *dev,
 			 struct ieee80211_supported_band *sband);
 void mt7615_phy_init(struct mt7615_dev *dev);
