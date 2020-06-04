@@ -320,7 +320,6 @@ void ieee80211_restart_hw(struct ieee80211_hw *hw)
 }
 EXPORT_SYMBOL(ieee80211_restart_hw);
 
-#ifdef __disabled__CONFIG_INET
 static int ieee80211_ifa_changed(struct notifier_block *nb,
 				 unsigned long data, void *arg)
 {
@@ -377,7 +376,6 @@ static int ieee80211_ifa_changed(struct notifier_block *nb,
 
 	return NOTIFY_OK;
 }
-#endif
 
 #if IS_ENABLED(__disabled__CONFIG_IPV6)
 static int ieee80211_ifa6_changed(struct notifier_block *nb,
@@ -1266,12 +1264,10 @@ int ieee80211_register_hw(struct ieee80211_hw *hw)
 
 	rtnl_unlock();
 
-#ifdef __disabled__CONFIG_INET
 	local->ifa_notifier.notifier_call = ieee80211_ifa_changed;
 	result = register_inetaddr_notifier(&local->ifa_notifier);
 	if (result)
 		goto fail_ifa;
-#endif
 
 #if IS_ENABLED(__disabled__CONFIG_IPV6)
 	local->ifa6_notifier.notifier_call = ieee80211_ifa6_changed;
@@ -1284,13 +1280,10 @@ int ieee80211_register_hw(struct ieee80211_hw *hw)
 
 #if IS_ENABLED(__disabled__CONFIG_IPV6)
  fail_ifa6:
-#ifdef __disabled__CONFIG_INET
-	unregister_inetaddr_notifier(&local->ifa_notifier);
 #endif
-#endif
-#if defined(__disabled__CONFIG_INET) || defined(__disabled__CONFIG_IPV6)
  fail_ifa:
-#endif
+	unregister_inetaddr_notifier(&local->ifa_notifier);
+
 	rtnl_lock();
 	rate_control_deinitialize(local);
 	ieee80211_remove_interfaces(local);
@@ -1316,9 +1309,7 @@ void ieee80211_unregister_hw(struct ieee80211_hw *hw)
 	tasklet_kill(&local->tx_pending_tasklet);
 	tasklet_kill(&local->tasklet);
 
-#ifdef __disabled__CONFIG_INET
 	unregister_inetaddr_notifier(&local->ifa_notifier);
-#endif
 #if IS_ENABLED(__disabled__CONFIG_IPV6)
 	unregister_inet6addr_notifier(&local->ifa6_notifier);
 #endif
