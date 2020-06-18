@@ -1867,6 +1867,7 @@ int mt7615_driver_own(struct mt7615_dev *dev)
 	mt7622_trigger_hif_int(dev, false);
 	dev->pm.last_activity = jiffies;
 
+pr_err("%s %d last activity = %lu\n", __func__, __LINE__, dev->pm.last_activity);
 	return 0;
 }
 EXPORT_SYMBOL_GPL(mt7615_driver_own);
@@ -1887,7 +1888,7 @@ int mt7615_firmware_own(struct mt7615_dev *dev)
 		return -EIO;
 	}
 	mt7622_trigger_hif_int(dev, false);
-
+pr_err("%s %d\n", __func__, __LINE__);
 	return 0;
 }
 EXPORT_SYMBOL_GPL(mt7615_firmware_own);
@@ -2394,7 +2395,7 @@ int mt7615_mcu_init(struct mt7615_dev *dev)
 	mt76_queue_tx_cleanup(dev, MT_TXQ_FWDL, false);
 	dev_dbg(dev->mt76.dev, "Firmware init done\n");
 	set_bit(MT76_STATE_MCU_RUNNING, &dev->mphy.state);
-	mt7615_mcu_fw_log_2_host(dev, 0);
+	mt7615_mcu_fw_log_2_host(dev, 1);
 
 	return 0;
 }
