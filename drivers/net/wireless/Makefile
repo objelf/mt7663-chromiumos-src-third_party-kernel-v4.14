@@ -28,3 +28,4 @@ obj-$(CONFIG_USB_NET_RNDIS_WLAN)	+= rndis_wlan.o
 
 obj-$(CONFIG_MAC80211_HWSIM)	+= mac80211_hwsim.o
 obj-$(CONFIG_IWL7000) += iwl7000/
+obj-$(CONFIG_MT76_CORE) += mt76/
