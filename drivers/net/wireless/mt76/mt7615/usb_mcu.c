@@ -86,6 +86,7 @@ int mt7663u_mcu_init(struct mt7615_dev *dev)
 	if (ret)
 		return ret;
 
+	clear_bit(MT76_STATE_PM, &dev->mphy.state);
 	mt76_clear(dev, MT_UDMA_TX_QSEL, MT_FW_DL_EN);
 	set_bit(MT76_STATE_MCU_RUNNING, &dev->mphy.state);
 
